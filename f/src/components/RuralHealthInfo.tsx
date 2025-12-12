@@ -96,7 +96,7 @@ const RuralHealthInfo = () => {
             
             <div className="grid grid-cols-1 gap-6">
               <div>
-                <h4 className="font-semibold text-gray-900 mb-3 text-green-600">✓ Recommended</h4>
+                <h4 className="font-semibold text-gray-900 mb-3">✓ Recommended</h4>
                 <div className="space-y-2">
                   {ruralHealthTips.traditionalPractices.beneficial.map((practice, index) => (
                     <div key={index} className="flex items-start gap-3">
@@ -108,7 +108,7 @@ const RuralHealthInfo = () => {
               </div>
 
               <div>
-                <h4 className="font-semibold text-gray-900 mb-3 text-red-600">✗ Avoid</h4>
+                <h4 className="font-semibold text-gray-900 mb-3">✗ Avoid</h4>
                 <div className="space-y-2">
                   {ruralHealthTips.traditionalPractices.avoid.map((practice, index) => (
                     <div key={index} className="flex items-start gap-3">

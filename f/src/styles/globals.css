@@ -1,42 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
-/* 
+
+/* Custom Styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   
-
-
-   @layer base {
-  :root {
-    font-family: 'Inter', system-ui, sans-serif;
-  }
-
   body {
-    @apply bg-gray-50 text-gray-900 antialiased;
+    @apply text-gray-900 antialiased;
   }
 }
 
-
-@layer utilities {
+@layer components {
   .bg-grid-slate-100\/50 {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(241 245 249 / 0.5)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(148 163 184 / 0.5)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
   }
 }
 
-
-
-
+/* Scrollbar Styling */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 rounded-full;
+  @apply bg-gray-100;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 rounded-full hover:bg-gray-500;
+  @apply bg-gradient-to-b from-purple-400 to-pink-400 rounded-full;
 }
 
-------------------------------------------- */
+::-webkit-scrollbar-thumb:hover {
+  @apply from-purple-500 to-pink-500;
+}
