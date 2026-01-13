@@ -229,3 +229,4 @@ const DailyTips = () => {
 };
 
 export default DailyTips;
+

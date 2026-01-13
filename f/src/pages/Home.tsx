@@ -16,121 +16,130 @@ import Footer from '@/components/Footer';
 const Home = () => {
   const location = useLocation();
 
-  // Handle hash scrolling on page load
+  // FIX: Force Scroll to Top on Reload
   useEffect(() => {
+    // 1. This tells the browser: "Stop trying to remember my scroll position!"
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    // 2. Logic: If there is a specific #link, go there. Otherwise, GO TO TOP.
     if (location.hash) {
       const element = document.getElementById(location.hash.replace('#', ''));
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
       }
+    } else {
+      // Force window to top (Hero Section) immediately
+      window.scrollTo(0, 0);
     }
   }, [location]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col font-sans text-slate-800">
+     
       <Header />
       
-      <main className="flex-grow bg-gradient-to-b from-purple-50/20 via-white to-blue-50/20">
-        {/* Hero Section */}
+      {/* Main Content with cleaner background */}
+      <main className="flex-grow bg-slate-50">
+        
+        {/* HERO SECTION - User will always see this first now */}
         <Hero />
         
-        {/* Main Content */}
-        <div className="container mx-auto px-4 py-12 space-y-16 max-w-7xl">
-          {/* Pregnancy Week Tracker */}
-          <section id="pregnancy-tracker" className="scroll-mt-24">
-            <div className="mb-8 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Interactive Pregnancy Tracker
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Track your pregnancy week by week with accurate medical data and personalized insights
-              </p>
+        <div className="container mx-auto px-4 py-16 space-y-24 max-w-7xl">
+          
+          {/* Tracker Section */}
+          <section id="pregnancy-tracker" className="scroll-mt-28">
+            <div className="bg-white rounded-3xl shadow-lg border border-slate-100 p-6 md:p-10">
+                  
+              <div className="flex justify-center">
+  <span className="inline-block py-1 px-3 rounded-full bg-purple-100 text-purple-700 text-sm font-semibold mb-4">
+    Weekly Progress
+  </span>
+</div>
+
+                
+              <PregnancyTracker />
             </div>
-            <PregnancyTracker />
           </section>
           
-          {/* Rural Health Information */}
-          <section id="rural-health" className="scroll-mt-24">
-            <div className="mb-8 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Rural Health Support
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Specialized guidance for mothers in rural and remote areas
-              </p>
-            </div>
-            <RuralHealthInfo />
+          {/* Rural Health Support */}
+          <section id="rural-health" className="scroll-mt-28">
+             <div className="text-center mb-12">
+               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Rural Health Support</h2>
+               <p className="text-slate-600 max-w-2xl mx-auto">Specialized guidance for mothers in remote areas.</p>
+             </div>
+             <RuralHealthInfo />
           </section>
           
           {/* Image Gallery */}
-          <section id="image-gallery" className="scroll-mt-24">
+          <section id="image-gallery" className="scroll-mt-28">
             <ImageSection />
           </section>
           
           {/* Nutrition Guide */}
-          <section id="nutrition" className="scroll-mt-24">
-            <div className="mb-8 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Pregnancy Nutrition Guide
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Balanced diet plans and nutritional advice for each trimester
-              </p>
+          <section id="nutrition" className="scroll-mt-28">
+            <div className="bg-white rounded-3xl shadow-sm p-6 md:p-10 border border-slate-100">
+              <div className="mb-10 text-center">
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                  Nutrition Guide
+                </h2>
+                <p className="text-slate-600 max-w-2xl mx-auto">
+                  Balanced diet plans tailored for your specific trimester.
+                </p>
+              </div>
+              <NutritionGuide />
             </div>
-            <NutritionGuide />
           </section>
           
-          {/* Pregnancy Care */}
-          <section id="care" className="scroll-mt-24">
-            <div className="mb-8 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Comprehensive Care Guide
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Essential healthcare information and doctor-recommended practices
-              </p>
-            </div>
+          {/* Care Guide */}
+          <section id="care" className="scroll-mt-28">
+             <div className="text-center mb-12">
+               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Comprehensive Care</h2>
+               <p className="text-slate-600 max-w-2xl mx-auto">Essential healthcare checks and reminders.</p>
+             </div>
             <CareSection />
           </section>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Must Do Section */}
-            <section id="must-do" className="scroll-mt-24">
+          {/* Split Grid: Must Do & Daily Tips */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            <section id="must-do" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-full scroll-mt-28">
               <MustDoList />
             </section>
             
-            {/* Daily Tips */}
-            <section id="daily-tips" className="scroll-mt-24">
+            <section id="daily-tips" className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-full scroll-mt-28">
               <DailyTips />
             </section>
           </div>
           
           {/* Body Changes */}
-          <section id="body-changes" className="scroll-mt-24">
-            <div className="mb-8 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Understanding Body Changes
+          <section id="body-changes" className="scroll-mt-28">
+            <div className="mb-10 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                Understanding Your Body
               </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Learn about the physical and emotional changes during pregnancy
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                Physical and emotional changes to expect this week.
               </p>
             </div>
             <BodyChanges />
           </section>
           
-          {/* Quick Questions */}
-          <section id="quick-questions" className="scroll-mt-24">
-            <div className="mb-8 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Quick Questions & Answers
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Get answers to common pregnancy questions from medical experts
-              </p>
+          {/* FAQ Section */}
+          <section id="quick-questions" className="scroll-mt-28 mb-12">
+            <div className="bg-indigo-50 rounded-3xl p-8 md:p-12">
+              <div className="mb-10 text-center">
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                  Common Questions
+                </h2>
+                <p className="text-slate-600 max-w-2xl mx-auto">
+                  Quick answers from medical experts.
+                </p>
+              </div>
+              <QuickQuestions />
             </div>
-            <QuickQuestions />
           </section>
         </div>
       </main>
